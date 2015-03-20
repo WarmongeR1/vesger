@@ -1,0 +1,39 @@
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr>
+      <th align="center">Improvements for V0.3.X</th>
+    </tr>
+  <tr>
+      <td>
+      <ul>
+             <li>Ported to Qt 4.3</li>
+             <li>Started multilaguage support</li>
+             <li>An improved plugin management (e.g. about plugin with logos...)</li>
+             <li>Added new filter and effects</li>
+             <li>Added new image tools</li>
+             <li>Added new file formats</li>
+             <li>Added directory browser</li>
+             <li>Added image slide show</li>
+             <li>Added History management</li>
+             <li>Added EXIF support</li>
+             <br>
+      </ul>
+      </td>
+  </tr>
+  <tr>
+      <th align="center">Future releases</th>
+    </tr>
+  <tr>
+      <td>
+      <ul>
+             <li>Porting to Qt 4.4</li>
+             <li>Debug&testing!</li>
+             <li>Better selection management</li>
+             <li>"Send a Bug" function</li>
+             <li>New plugins</li>
+             <li>Better EXIF support</li>
+             <li>Documentation & manuals</li>
+             <br>
+      </ul>
+      </td>
+  </tr>
+</table>

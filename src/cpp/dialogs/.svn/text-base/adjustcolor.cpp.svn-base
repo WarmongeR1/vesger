@@ -1,0 +1,131 @@
+/***************************************************************************
+ *   Copyright (C) 2007 by QPhoton team                                    *
+ *   http://www.qphoton.org                                                *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ ***************************************************************************
+ *                                                                         *
+ *   Author     :   paolo                                                  *
+ *   Date       :   March, 30 2007                                         *
+ *   Date       :   April, 19 2007 - v2.1 review                           * 
+ *                                                                         *
+ ***************************************************************************/
+
+
+#include "main.h"
+#include "imagealgo.h"
+#include "adjustcolor.h"
+#include <QImage>
+#include <QPixmap>
+
+/*!
+  \brief constructor
+  \param QWidget *parent
+*/
+CAdjustColorForm::CAdjustColorForm(QWidget *parent)
+    :QDialog(parent)
+{
+ setupUi(this);
+ setAttribute( Qt::WA_DeleteOnClose );
+
+ m_red=0;
+ m_green=0;
+ m_blue=0;
+
+ // connect slider to respective slots
+ connect(redSlider,SIGNAL(valueChanged(int)),this,SLOT(redChanged(int)));
+ connect(greenSlider,SIGNAL(valueChanged(int)),this,SLOT(greenChanged(int)));
+ connect(blueSlider,SIGNAL(valueChanged(int)),this,SLOT(blueChanged(int)));
+ connect(buttonBox,SIGNAL(accepted()),this,SLOT(acceptModification()));
+}
+
+
+/*!
+  \brief setPreview: This method is used to set the preview image
+  \param QImage *
+  \return void
+*/
+void CAdjustColorForm::setPreview(QImage image)
+{
+ m_previewImage=image; // copy the whole image
+ //m_previewImage=m_previewImage.scaled(200,200,Qt::KeepAspectRatio); // resize the image
+ QPixmap pix;
+ pix=pix.fromImage(m_previewImage); // convert the image
+ previewLabel->setPixmap(pix);    // show the image
+}
+
+
+/*!
+  \brief acceptModification: This method is used to get RGB values when the user acknowledges the modifications
+  \param void
+  \return void
+*/
+void CAdjustColorForm::acceptModification()
+{
+ emit acceptModificationSignal(m_red,m_green,m_blue); // emit the signal
+}
+
+
+/*!
+  \brief redChanged: This method records the new value
+  \param int
+  \return void
+*/
+void CAdjustColorForm::redChanged(int value)
+{
+ m_red=value;
+ QImage result = m_previewImage.convertToFormat(QImage::Format_RGB32);
+ CImageAlgo imageAlgo(result);                 // copy the image
+ result=imageAlgo.modifyRGB(m_red,m_green,m_blue);  // modify RGB colors
+ QPixmap pix;
+ pix=pix.fromImage(result);
+ previewLabel->setPixmap(pix);               // set preview
+}
+
+
+/*!
+  \brief greenChanged: This method records the new value
+  \param int
+  \return void
+*/
+void CAdjustColorForm::greenChanged(int value)
+{
+ m_green=value;
+ QImage result = m_previewImage.convertToFormat(QImage::Format_RGB32);
+ CImageAlgo imageAlgo(result);                   // copy the image
+ result=imageAlgo.modifyRGB(m_red,m_green,m_blue);    // modify RGB colors
+ QPixmap pix;
+ pix=pix.fromImage(result);
+ previewLabel->setPixmap(pix);                  // set preview
+}
+
+
+/*!
+  \brief blueChanged: This method records the new value
+  \param int
+  \return void
+*/
+void CAdjustColorForm::blueChanged(int value)
+{
+ m_blue=value;
+ QImage result = m_previewImage.convertToFormat(QImage::Format_RGB32);
+ CImageAlgo imageAlgo(result);                  // copy the image
+ result=imageAlgo.modifyRGB(m_red,m_green,m_blue);   // modify RGB colors
+ QPixmap pix;
+ pix=pix.fromImage(result);
+ previewLabel->setPixmap(pix);                 // set preview
+}
+

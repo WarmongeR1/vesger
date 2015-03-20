@@ -1,0 +1,125 @@
+/***************************************************************************
+ *   Copyright (C) 2007 by QPhoton team                                    *
+ *   http://www.qphoton.org                                                *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ ***************************************************************************
+ *                                                                         *
+ *   Author     :   marco, (C) 2007                                        *
+ *   Date       :   May, 13 2007                                           *
+ *                                                                         *
+ *                                                                         *
+ ***************************************************************************/
+ #include <QStringListModel>
+ #include <QSettings>
+ #include <QTranslator>
+ #include <QMessageBox>
+ #include "main.h"
+ #include "option.h"
+
+/*!
+ \brief Constructor
+ \param parent  widget
+*/
+COption::COption(bool start,QWidget* parent):QDialog(parent)
+{
+	m_start=start;
+setupUi(this);
+if(m_start){
+apply->setVisible(false);
+cancel->setVisible(false);
+okButton->setText("Next");
+}
+setWindowTitle(tr("Preferences"));
+setWindowIcon(QIcon(":/resources/images/icon.png"));
+connect(cancel,SIGNAL(clicked()),this,SLOT(escEvent()));
+connect(okButton,SIGNAL(clicked()),this,SLOT(okEvent()));
+connect(apply,SIGNAL(clicked()),this,SLOT(applyEvent()));
+connect(listWidget,SIGNAL(itemSelectionChanged ()),this,SLOT(chanchedItem()));
+}
+
+/*!
+ \brief changed page when click on item 
+ \return void
+*/
+void COption::chanchedItem(){
+//	if(listWidget->currentItem()->text()=="Languages")
+    if(listWidget->currentRow()==0)		
+		stackedWidget->setCurrentIndex(1);
+	else
+		stackedWidget->setCurrentIndex(0);//solo per ora
+
+}
+
+
+/*!
+ \brief event button esc
+ \return void
+*/
+void COption::escEvent()
+{
+ close();
+}
+
+/*!
+ \brief event button ok
+ \return void
+*/
+void COption::okEvent(){
+	applyEvent();
+	if(!m_start){
+			QMessageBox::warning(this, APP_NAME,
+                   tr("Please,restart the program,\nto apply the change"),
+                   QMessageBox::Ok);
+		}
+	close();
+}
+
+/*!
+ \brief event button apply
+ \return void
+*/
+void COption::applyEvent(){
+	
+	
+	QSettings settings(ORG_NAME, APP_NAME);
+    QTranslator translator( 0 );
+    //set the lang 
+    if(comboBox->currentIndex()==0){
+    	m_lang="qphoton_en";
+    	settings.setValue("linguas",m_lang);
+    }
+     if(comboBox->currentIndex()==1){
+    	m_lang="qphoton_es";
+    	settings.setValue("linguas",m_lang);
+    }
+     if(comboBox->currentIndex()==2){
+    	m_lang="qphoton_it";
+    	settings.setValue("linguas",m_lang);
+    }
+     if(comboBox->currentIndex()==3){
+    	m_lang="qphoton_fr";
+    	settings.setValue("linguas",m_lang);
+    }
+     if(comboBox->currentIndex()==4){
+    	m_lang="qphoton_de";
+    	settings.setValue("linguas",m_lang);
+    }
+		emit langChanged(m_lang);
+		//message warning for reboot qphoton
+		
+}
+

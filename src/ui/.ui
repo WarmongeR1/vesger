@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>AboutForm</class>
+ <widget class="QDialog" name="AboutForm">
+  <property name="windowModality">
+   <enum>Qt::WindowModal</enum>
+  </property>
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>413</width>
+    <height>618</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>About</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="../../images.qrc">
+    <normaloff>:/resources/images/icon.png</normaloff>:/resources/images/icon.png</iconset>
+  </property>
+  <layout class="QGridLayout">
+   <item row="0" column="0">
+    <layout class="QGridLayout" name="a">
+     <item row="0" column="0" colspan="3">
+      <widget class="QLabel" name="lLogo">
+       <property name="pixmap">
+        <pixmap>:/resources/images/splash.png</pixmap>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0" colspan="3">
+      <widget class="QLabel" name="lInformations">
+       <property name="text">
+        <string>Information</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0" colspan="3">
+      <widget class="QTabWidget" name="twInformations">
+       <property name="currentIndex">
+        <number>1</number>
+       </property>
+       <widget class="QTextEdit" name="teTodo">
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="undoRedoEnabled">
+         <bool>false</bool>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="tabStopWidth">
+         <number>40</number>
+        </property>
+        <attribute name="icon">
+         <iconset resource="../../images.qrc">
+          <normaloff>:/resources/images/checkbox.png</normaloff>:/resources/images/checkbox.png</iconset>
+        </attribute>
+        <attribute name="title">
+         <string>Todo</string>
+        </attribute>
+       </widget>
+       <widget class="QTextEdit" name="teAuthors">
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="undoRedoEnabled">
+         <bool>false</bool>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="tabStopWidth">
+         <number>40</number>
+        </property>
+        <attribute name="icon">
+         <iconset resource="../../images.qrc">
+          <normaloff>:/resources/images/about.png</normaloff>:/resources/images/about.png</iconset>
+        </attribute>
+        <attribute name="title">
+         <string>Authors</string>
+        </attribute>
+       </widget>
+       <widget class="QTextEdit" name="teGreetings">
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="undoRedoEnabled">
+         <bool>false</bool>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="tabStopWidth">
+         <number>40</number>
+        </property>
+        <attribute name="icon">
+         <iconset resource="../../images.qrc">
+          <normaloff>:/resources/images/book.png</normaloff>:/resources/images/book.png</iconset>
+        </attribute>
+        <attribute name="title">
+         <string>Greetings</string>
+        </attribute>
+       </widget>
+       <widget class="QTextEdit" name="teLicense">
+        <property name="frameShape">
+         <enum>QFrame::NoFrame</enum>
+        </property>
+        <property name="undoRedoEnabled">
+         <bool>false</bool>
+        </property>
+        <property name="readOnly">
+         <bool>true</bool>
+        </property>
+        <property name="tabStopWidth">
+         <number>40</number>
+        </property>
+        <attribute name="icon">
+         <iconset resource="../../images.qrc">
+          <normaloff>:/resources/images/avviso.png</normaloff>:/resources/images/avviso.png</iconset>
+        </attribute>
+        <attribute name="title">
+         <string>License</string>
+        </attribute>
+       </widget>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <spacer>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="3" column="2">
+      <spacer>
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item row="3" column="1">
+      <widget class="QPushButton" name="pushButton">
+       <property name="text">
+        <string>PushButton</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+ <resources>
+  <include location="../../images.qrc"/>
+ </resources>
+ <connections/>
+</ui>

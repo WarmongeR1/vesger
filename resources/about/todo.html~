@@ -1,0 +1,49 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML>
+<HEAD>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8" >
+	<TITLE></TITLE>
+	<meta name="generator" content="Bluefish 2.0.1" >
+	<META NAME="CREATED" CONTENT="20060417;18503995">
+	<META NAME="CHANGED" CONTENT="20060417;18514362">
+	<STYLE>
+	<!--
+		@page { size: 21cm 29.7cm; margin: 2cm }
+		P { margin-bottom: 0.21cm }
+	-->
+	</STYLE>
+</HEAD>
+<table width="100%" cellpadding="0" cellspacing="0" border="0">
+  <tr>
+      <th align="center">Функции в версии V0.0.1</th>
+    </tr>
+  <tr>
+      <td>
+      <ul>
+             <li>Релиз содержит первоначальные возможности это: открыть, сохранить, создать новый файл. Нарисовать инструментом:
+             <br>Кривая линия, Прямоугольник, прямая линия. карандаш, ластик, овал, текст, заливка, выделение<br>
+             Также, удаление, копирование области, заливка области. 
+             <br>Выбор цвета, выбор инструмента(панели)
+             </li>
+             <li> </li>
+
+
+             <br>
+      </ul>
+      </td>
+  </tr>
+  <tr>
+      <th align="center">Latest Cha...</th>
+    </tr>
+  <tr>
+      <td>
+      <ul>
+             <li>more more more wort</li>
+
+             <br>
+      </ul>
+      </td>
+  </tr>
+</table>
+</BODY>
+</HTML>

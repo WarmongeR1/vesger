@@ -1,0 +1,69 @@
+/***************************************************************************
+ *   Copyright (C) 2007 by QPhoton team                                    *
+ *   http://www.qphoton.org                                                *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ ***************************************************************************
+ *                                                                         *
+ *   Author     :   marco, (C) 2007                                        *
+ *   Date       :   March, 30 2007  - sw integration by paolo              *
+ *   Date       :   April, 19 2007 - v2.1 review by Paolo S.               * 
+ *                                                                         *
+ ***************************************************************************/
+
+#include "savewindows.h"
+#include <QMessageBox>
+
+
+/*!
+ \brief Constructor
+ \param parent parent widget
+*/
+CSaveWindows::CSaveWindows(QWidget* parent) 
+ : QDialog(parent)
+{
+  setupUi(this);
+  setWindowTitle(tr("Image Quality"));
+  setWindowIcon(QIcon(":/images/icon.png"));
+  connect(esciButton,SIGNAL(clicked()),this,SLOT(esc_event()));
+  connect(okButton,SIGNAL(clicked()),this,SLOT(ok_event()));
+}
+
+
+/*!
+  \brief ok_event
+  \param void
+  \return void
+*/
+void CSaveWindows::ok_event()
+{
+ m_quality=spinBox->value();
+ emit qualityChanged(m_quality);
+ close();
+}
+
+
+/*!
+  \brief esc_event
+  \param void
+  \return void
+*/
+void CSaveWindows::esc_event()
+{
+ m_quality=-1;
+ close();
+}
+

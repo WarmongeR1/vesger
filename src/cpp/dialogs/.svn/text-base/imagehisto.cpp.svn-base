@@ -1,0 +1,172 @@
+/***************************************************************************
+ *   Copyright (C) 2007 by QPhoton team                                    *
+ *   http://www.qphoton.org                                                *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ ***************************************************************************
+ *                                                                         *
+ *   Author     :   paolo                                                  *
+ *   Date       :   March, 30 2007                                         *
+ *   Date       :   April, 19 2007 - v2.1 review                           * 
+ *                                                                         *
+ ***************************************************************************/
+
+
+#include "main.h"
+#include "imagehistodialog.h"
+#include <QDialog>
+#include <qwt_plot.h>
+#include <qwt_plot_curve.h>
+#include <qwt_plot_grid.h>
+
+/*!
+  \brief iconstructor
+  \param QWidget *parent
+*/
+CImageHistoForm::CImageHistoForm(QWidget *parent)
+    :QDialog(parent)
+{
+ setupUi(this);
+ setAttribute( Qt::WA_DeleteOnClose );
+
+ // connect Form widgets to respective slots
+ connect(RedButton,SIGNAL(clicked()),this,SLOT(toggleRed()));
+ connect(GreenButton,SIGNAL(clicked()),this,SLOT(toggleGreen()));
+ connect(BlueButton,SIGNAL(clicked()),this,SLOT(toggleBlue()));
+ connect(ValueButton,SIGNAL(clicked()),this,SLOT(toggleValue()));
+
+ // prepare histogram
+ imgHisto->resize(imgHisto->sizeHint());
+ imgHisto->setAxisScale(QwtPlot::xBottom,0,256,50);
+ imgHisto->setCanvasBackground (Qt::white);
+
+ // prepare grid histogram
+ QwtPlotGrid *grid = new QwtPlotGrid;
+ grid->enableXMin(true);
+ grid->enableYMin(true);
+ grid->setMajPen(QPen(Qt::gray, 0, Qt::DotLine));
+ grid->setMinPen(QPen(Qt::gray, 0 , Qt::DotLine));
+ grid->attach(imgHisto);
+
+
+ // prepare RGB curves
+ imgHistoCurveR = new QwtPlotCurve("Red");
+ imgHistoCurveR->setPen(QPen(Qt::red));
+ imgHistoCurveR->setStyle(QwtPlotCurve::Sticks);
+
+ imgHistoCurveG = new QwtPlotCurve("Green");
+ imgHistoCurveG->setPen(QPen(Qt::green));
+ imgHistoCurveG->setStyle(QwtPlotCurve::Sticks);
+
+ imgHistoCurveB = new QwtPlotCurve("Blue");
+ imgHistoCurveB->setPen(QPen(Qt::blue));
+ imgHistoCurveB->setStyle(QwtPlotCurve::Sticks);
+
+ imgHistoCurveV = new QwtPlotCurve("Value");
+ imgHistoCurveV->setPen(QPen(Qt::black));
+ imgHistoCurveV->setStyle(QwtPlotCurve::Sticks);
+
+ // qwt 5.0.1 following axes are enabled by default
+ //imgHisto->enableYLeftAxis(false);
+ //imgHisto->enableXBottomAxis(false);
+ imgHisto->enableAxis(QwtPlot::xBottom,false);
+ imgHisto->enableAxis(QwtPlot::yLeft,false);
+}
+
+
+/*!
+  \brief setPlots: This method is used to set the histogram plots
+  \param double value[], double red[],double green[], double blue[]
+  \return void
+*/
+void CImageHistoForm::setPlots(double value[], double red[],double green[], double blue[])
+{
+double index[256];
+
+  // prepare axes
+  int nItems=255;
+  for(int i=0;i<nItems;i++)
+    index[i]=(double)i;
+
+  // filter null values
+  value[0]=0;
+  red[0]=0;
+  green[0]=0;
+  blue[0]=0;
+
+  // set plot curves
+  imgHistoCurveR->setData(index,red,nItems);
+  imgHistoCurveR->attach(imgHisto);
+  imgHistoCurveG->setData(index,green,nItems);
+  imgHistoCurveG->attach(imgHisto);
+  imgHistoCurveB->setData(index,blue,nItems);
+  imgHistoCurveB->attach(imgHisto);
+  imgHistoCurveV->setData(index,value,nItems);
+  imgHistoCurveV->attach(imgHisto);
+  imgHistoCurveV->setVisible(false);
+  
+  // plot the histogram
+  imgHisto->replot();
+}
+
+
+/*!
+  \brief toggleRed: This method is used to toggle the corresponding curve
+  \param none
+  \return void
+*/
+void CImageHistoForm::toggleRed()
+{
+ imgHistoCurveR->setVisible(imgHistoCurveR->isVisible() ? false :true);
+ imgHisto->replot();
+}
+
+
+/*!
+  \brief toggleGreen: This method is used to toggle the corresponding curve
+  \param none
+  \return void
+*/
+void CImageHistoForm::toggleGreen()
+{
+ imgHistoCurveG->setVisible(imgHistoCurveG->isVisible() ? false :true);
+ imgHisto->replot();
+
+}
+
+
+/*!
+  \brief toggleBlue: This method is used to toggle the corresponding curve
+  \param none
+  \return void
+*/
+void CImageHistoForm::toggleBlue()
+{
+ imgHistoCurveB->setVisible(imgHistoCurveB->isVisible() ? false :true);
+ imgHisto->replot();
+}
+
+
+/*!
+  \brief toggleValue: This method is used to toggle the corresponding curve
+  \param none
+  \return void
+*/
+void CImageHistoForm::toggleValue()
+{
+ imgHistoCurveV->setVisible(imgHistoCurveV->isVisible() ? false :true);
+ imgHisto->replot();
+}

@@ -1,0 +1,78 @@
+/***************************************************************************
+ *   Copyright (C) 2007 by QPhoton team                                    *
+ *   http://www.qphoton.org                                                *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ ***************************************************************************
+ *                                                                         *
+ *   Author     :   paolo                                                  *
+ *   Date       :   June, 16 2007                                          *
+ *   Date       :   June, 16 2007 - v0.3.0 review                          * 
+ *                                                                         *
+ ***************************************************************************/
+
+
+#include "main.h"
+#include "imageexifdialog.h"
+#include "image.hpp"
+#include "exif.hpp"
+#include <QDialog>
+#include <QDebug>
+#include <QDataStream>
+
+/*!
+  \brief iconstructor
+  \param QWidget *parent
+*/
+CImageExifForm::CImageExifForm(QWidget *parent)
+    :QDialog(parent)
+{
+ setupUi(this);
+ setAttribute( Qt::WA_DeleteOnClose );
+
+}
+
+
+/*!
+  \brief showInfo
+  \param Exiv2::ExifData *exifData
+*/
+void CImageExifForm::showInfo(Exiv2::ExifData exifData)
+{
+ if (!exifData.empty())
+ {
+   Exiv2::ExifData::const_iterator end = exifData.end();
+   QString tag,name,val;
+   int row=0,col=0;
+   for (Exiv2::ExifData::const_iterator i = exifData.begin(); i != end; ++i) 
+    col++;
+   tableWidget->setRowCount(col);
+
+   for (Exiv2::ExifData::const_iterator i = exifData.begin(); i != end; ++i) 
+   {
+       tag=tag.fromStdString(i->key());
+       name=tag.fromStdString(i->tagName());
+       val=val.fromStdString(exifData[tag.toStdString()].toString());
+       QTableWidgetItem *newItemName = new QTableWidgetItem(name);
+       tableWidget->setItem(row, 0, newItemName);
+       QTableWidgetItem *newItemVal = new QTableWidgetItem(val);
+       tableWidget->setItem(row, 1, newItemVal);
+       row++;
+   }
+   tableWidget->resizeColumnsToContents();
+ }
+
+}

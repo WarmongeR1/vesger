@@ -1,0 +1,119 @@
+/***************************************************************************
+ *   Copyright (C) 2007 by QPhoton team                                    *
+ *   http://www.qphoton.org                                                *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ ***************************************************************************
+ *                                                                         *
+ *   Author     :   paolo                                                  *
+ *   Date       :   March, 30 2007                                         *
+ *   Date       :   April, 19 2007 - v2.1 review                           *  
+ *                                                                         *
+ ***************************************************************************/
+
+
+#include "main.h"
+#include "brightnesscontrast.h"
+#include "imagealgo.h"
+
+#include <QImage>
+#include <QPixmap>
+#include <math.h>
+
+/*!
+  \brief constructor
+  \param QWidget *parent
+*/
+CBrightnessContrastForm::CBrightnessContrastForm(QWidget *parent)
+    :QDialog(parent)
+{
+ setupUi(this);
+ setAttribute( Qt::WA_DeleteOnClose );
+
+ m_brightness=1;
+ m_contrast=1;
+
+ // connect form widget signals to respective slots
+ connect(brightnessSlider,SIGNAL(valueChanged(int)),this,SLOT(brightnessChanged(int)));
+ connect(contrastSlider,SIGNAL(valueChanged(int)),this,SLOT(contrastChanged(int)));
+ connect(buttonBox,SIGNAL(accepted()),this,SLOT(acceptModification()));
+}
+
+
+/*!
+  \brief setPreview. This methods set the Image preview QLabel widget
+  \param QImage *
+  \return void
+*/
+void CBrightnessContrastForm::setPreview(QImage image)
+{
+ m_previewImage=image;
+ m_previewImage=m_previewImage.scaled(200,200,Qt::KeepAspectRatio); // scale the image to fit in form QLabel widget
+ QPixmap pix;
+ pix=pix.fromImage(m_previewImage);  // get the image
+ previewLabel->setPixmap(pix);     // preview the image
+}
+
+
+/*!
+  \brief acceptModification: The user accepted the modification, so emit the signal to the "caller"
+  \param void
+  \return void
+*/
+void CBrightnessContrastForm::acceptModification()
+{
+ emit acceptNewBCSignal(m_brightness, m_contrast);
+}
+
+
+/*!
+  \brief brightnessChanged: update preview image 
+  \param int
+  \return void
+*/
+void CBrightnessContrastForm::brightnessChanged(int value)
+{
+ m_brightness=value;
+ updatePreview();
+}
+
+
+/*!
+  \brief contrastChanged: update preview image
+  \param int
+  \return void
+*/
+void CBrightnessContrastForm::contrastChanged(int value)
+{
+ m_contrast=value;
+ updatePreview();
+}
+
+
+/*!
+  \brief updatePreview: update the preview image displayed in this dialog window
+  \param void
+  \return void
+*/
+void CBrightnessContrastForm::updatePreview()
+{
+ CImageAlgo imageAlgo(m_previewImage); // copy the image
+ QImage image=imageAlgo.modifyBC(m_brightness,m_contrast); // apply modifications
+ QPixmap pix;
+ pix=pix.fromImage(image);     // convert the image
+ previewLabel->setPixmap(pix); // preview the image
+}
+

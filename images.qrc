@@ -1,0 +1,44 @@
+<RCC>
+    <qresource prefix="/">
+        <file>resources/images/oval.png</file>
+        <file>resources/images/rectangle.png</file>
+        <file>resources/images/zoomout.png</file>
+        <file>resources/images/zoomin.png</file>
+        <file>resources/images/undo.png</file>
+        <file>resources/images/textpointer.png</file>
+        <file>resources/images/select.png</file>
+        <file>resources/images/save.png</file>
+        <file>resources/images/refresh.png</file>
+        <file>resources/images/redo.png</file>
+        <file>resources/images/print.png</file>
+        <file>resources/images/pointer.png</file>
+        <file>resources/images/paste.png</file>
+        <file>resources/images/open.png</file>
+        <file>resources/images/new.png</file>
+        <file>resources/images/linepointer.png</file>
+        <file>resources/images/linecolor.png</file>
+        <file>resources/images/icon.png</file>
+        <file>resources/images/home.png</file>
+        <file>resources/images/help.png</file>
+        <file>resources/images/delete.png</file>
+        <file>resources/images/cut.png</file>
+        <file>resources/images/cross.png</file>
+        <file>resources/images/copy.png</file>
+        <file>resources/images/background.png</file>
+        <file>resources/images/about.png</file>
+        <file>resources/images/find.png</file>
+        <file>resources/images/Eraser.png</file>
+        <file>resources/cursors/cursoreraser.png</file>
+        <file>resources/cursors/cursorrectangle.png</file>
+        <file>resources/cursors/cursortextpointer.png</file>
+        <file>resources/cursors/cursoroval.png</file>
+        <file>resources/images/polygon.png</file>
+        <file>resources/images/bezier.png</file>
+        <file>resources/images/pipette.png</file>
+        <file>resources/images/vesger.png</file>
+        <file>resources/images/splash.png</file>
+        <file>resources/background.png</file>
+        <file>resources/images/paintcan.png</file>
+        <file>resources/images/Brush.png</file>
+    </qresource>
+</RCC>

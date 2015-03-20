@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 46
+/svnroot/qphoton/!svn/ver/54/trunk/src/dialogs
+END
+imageexifdialog.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 66
+/svnroot/qphoton/!svn/ver/29/trunk/src/dialogs/imageexifdialog.cpp
+END
+brightnesscontrast.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svnroot/qphoton/!svn/ver/27/trunk/src/dialogs/brightnesscontrast.cpp
+END
+option.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 57
+/svnroot/qphoton/!svn/ver/48/trunk/src/dialogs/option.cpp
+END
+adjustcolor.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 62
+/svnroot/qphoton/!svn/ver/27/trunk/src/dialogs/adjustcolor.cpp
+END
+imagehisto.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 60
+/svnroot/qphoton/!svn/ver/1/trunk/src/dialogs/imagehisto.cpp
+END
+savewindows.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 61
+/svnroot/qphoton/!svn/ver/1/trunk/src/dialogs/savewindows.cpp
+END
+about.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 55
+/svnroot/qphoton/!svn/ver/1/trunk/src/dialogs/about.cpp
+END
+aboutplugins.cpp
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svnroot/qphoton/!svn/ver/54/trunk/src/dialogs/aboutplugins.cpp
+END

@@ -1,0 +1,65 @@
+/***************************************************************************
+ *   Copyright (C) 2007 by QPhoton team                                    *
+ *   http://www.qphoton.org                                                *
+ *                                                                         *
+ *   This program is free software; you can redistribute it and/or modify  *
+ *   it under the terms of the GNU General Public License as published by  *
+ *   the Free Software Foundation; either version 2 of the License, or     *
+ *   (at your option) any later version.                                   *
+ *                                                                         *
+ *   This program is distributed in the hope that it will be useful,       *
+ *   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+ *   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+ *   GNU General Public License for more details.                          *
+ *                                                                         *
+ *   You should have received a copy of the GNU General Public License     *
+ *   along with this program; if not, write to the                         *
+ *   Free Software Foundation, Inc.,                                       *
+ *   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+ ***************************************************************************
+ *                                                                         *
+ *   Author     :   paolo                                                  *
+ *   Date       :   Sept, 16 2007                                          *
+ *                                                                         *
+ ***************************************************************************/
+
+#include <QTableWidgetItem>
+
+#include "main.h"
+#include "aboutplugins.h"
+
+
+
+/*!
+  \brief CAboutPluginsForm
+  \param QWidget *parent
+*/
+CAboutPluginsForm::CAboutPluginsForm(QWidget *parent)
+    :QDialog(parent)
+{
+    setupUi(this); // setup user interface (see Trolltech Qt designer, uic, moc user manual pages
+    setAttribute( Qt::WA_DeleteOnClose );
+    //setFixedSize( size() ); // not resizeable
+    pluginTable->setRowCount(99);
+    m_numberPlugin=0;
+}
+
+
+/*!
+  \brief setPluginData: fill the table row with plugin data
+  \param QStringList data
+*/
+void CAboutPluginsForm::addPluginData(QStringList data)
+{
+	QTableWidgetItem *newItem = new QTableWidgetItem(data.at(0));
+	pluginTable->setItem(m_numberPlugin, 0, newItem); 
+	QTableWidgetItem *newItem1 = new QTableWidgetItem(data.at(1));
+	pluginTable->setItem(m_numberPlugin, 1, newItem1); 
+	QTableWidgetItem *newItem2 = new QTableWidgetItem(data.at(2));
+	pluginTable->setItem(m_numberPlugin, 2, newItem2); 
+	QTableWidgetItem *newItem3 = new QTableWidgetItem(data.at(3));
+	pluginTable->setItem(m_numberPlugin, 3, newItem3); 	
+	pluginTable->resizeColumnsToContents();
+	m_numberPlugin++;
+}
+
